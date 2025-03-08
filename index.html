@@ -5,9 +5,36 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React</title>
+    <link rel="stylesheet" type="text/css" href="/src/assets/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="/src/assets/slick/slick-theme.css"/>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/src/assets/slick/slick.min.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
+  <script>
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuItems = document.querySelectorAll(".page-tab-area ul li a");
+
+      menuItems.forEach(item => {
+        item.addEventListener("click", function () {
+
+
+          // 기존 활성화된 요소의 .active 제거
+          document.querySelectorAll(".page-tab-area ul li").forEach(li => {
+            li.classList.remove("active");
+          });
+
+          // 클릭한 요소의 부모인 li에 .active 추가
+          this.parentElement.classList.add("active");
+        });
+      });
+    });
+  </script>
 </html>

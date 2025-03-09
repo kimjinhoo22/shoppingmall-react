@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, Router} from 'react-router-dom';
 import dogImage from '../assets/images/dog-img.png';
 
@@ -6,16 +6,25 @@ import dogImage from '../assets/images/dog-img.png';
 export function Header() {
     const [user, setUser] = useState(null);
 
-    // useEffect(() => {
-    //     try{
-    //         const response = fetch("/api/users");
-    //         const data = response.json();
-    //         setUser(data);
-    //     }catch (error) {
-    //         console.log(error);
-    //     }
-    //
-    // }, [])
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try{
+                const response = await fetch("http://localhost:8080/api/users" , {
+                    method: "GET"
+                });
+
+                if(!response.ok){
+                    console.log("error")
+                }
+                const data = await response.json();
+                console.log(data)
+                setUser(data);
+            }catch (error) {
+                console.log(error);
+            }
+        }
+       fetchUserData().catch(error => console.log(error));
+    }, [])
 
     return (
         <div className="header-border">
@@ -24,11 +33,11 @@ export function Header() {
                     {user ? (
                         <div className="top-link">
                             <span>{user.name}님</span>&nbsp;
-                            <a href="/logout">로그아웃</a>
+                            <Link to="/logout">로그아웃</Link>
                         </div>
                     ) : (
                         <div className="top-link">
-                            <a href="/login">로그인</a>
+                            <Link to="/login">로그인</Link>
                         </div>
                     )}
                     <div className="top-link">고객센터</div>
